@@ -10,7 +10,7 @@ UandF::UandF(int n)
 {
   //parents.resize(n);
   //ranks.resize(n);
-  for(int i = 0; i<n ; i++) //maybe change to 1->n?
+  for(int i = 0; i<=n ; i++) //maybe change to 1->n?
   {
     parents.push_back(-1);
     ranks.push_back(-1); //initialize vectors to -1 to indicate that make_set has not been performed yet();
@@ -63,7 +63,7 @@ void UandF::print()
 {
   for (int i = 0 ; i < parents.size() ; i++)
   {
-    std::cout << "i: " << i << "\tparent: " << parents[i] << "\trank: " << ranks[i] << "\n"; //TODO add findset once implemented
+    std::cout << "i: " << i << "\tparent: " << parents[i] << "\trank: " << ranks[i] << "\tset: " << find_set(i) << "\n"; //TODO add findset once implemented
   }
   std::cout << "\n";
 }

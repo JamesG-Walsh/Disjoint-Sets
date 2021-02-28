@@ -49,7 +49,9 @@ int main(int argc, char *argv[])
   int clm = 0;
   int numElements = 0;
 
-  std::vector<std::vector<bool> > twoDBools; //2D vector
+  //Node * nodeptr; //not sure why I can't declare this
+
+  std::vector<std::vector<Node> > twoDNodes; //2D vector of Nodes
   std::vector<Node> oneDNodes;
   //Node node; //passed dummy values here
 
@@ -57,70 +59,79 @@ int main(int argc, char *argv[])
   {
     getline(fin, rowStr);
     //std::cout << row << std::endl;
-    std::vector<bool> boolRow;
+    std::vector<Node> twoDNodeRow;
     for (it = rowStr.begin() ; it!=rowStr.end() ; it++)
     {
       c = *it;
+      std::cout << c;
       ++clm;
       if (c == '+')
       {
-        std::cout << '+';
-        boolRow.push_back(true);
-
-        Node node = Node(row, clm, ++numElements);
+        Node node = Node(row, clm, ++numElements, true);
         oneDNodes.push_back(node);
+        twoDNodeRow.push_back(node);
       }
       else if (c == ' ')
       {
-        std::cout << ' ';
-        boolRow.push_back(false);
-      }
-      else
-      {
-      }
+        Node node = Node(row, clm, -1, false);
+        twoDNodeRow.push_back(node);
+      } //else?
     }
     row++;
     //std::cout << "num rows: " << numRows << "\tnum elements: " << numElements << "\n";
-    if(0 < boolRow.size())
+    if(0 < twoDNodeRow.size())
     {
-      twoDBools.push_back(boolRow);
+      twoDNodes.push_back(twoDNodeRow);
     }
     std::cout << "\n";
   }
   fin.close();
 
-  std::cout << "num rows: " << twoDBools.size() << "\tnum elements: " << numElements << "\n";
-
-  UandF ufb = UandF(numElements);
-
-  int height = twoDBools.size();
+  int height = twoDNodes.size();
   int width;
   int oneDindex;
+
+  std::cout << "num rows: " << height << "\tnum elements: " << numElements << "\n";
+
+  UandF ufb = UandF(numElements);
 
   for(oneDindex = 1; oneDindex <= oneDNodes.size(); oneDindex++ )
   {
     ufb.make_set(oneDindex);
   }
+  //ufb.print();
 
-  ufb.print();
-
-  for(row = 0 ; row < height ; row++)
+  for(row = 0; row < height ; row++)
   {
-    width = twoDBools[row].size();
+    width = twoDNodes[row].size();
     std::cout << "\nrow: " << row << "\twidth: " << width;
-    for (clm = 0 ; clm < width ; clm++, oneDindex++)
+    for (clm = 0 ; clm < width ; clm++)
     {
-      if(twoDBools[row][clm])
+      if(twoDNodes[row][clm].isAnElement)
       {
-        std::cout << '+';
-        //ufb.make_set(oneDindex);
+        //std::cout << '+';
+        if(0 < row && twoDNodes[row-1][clm].isAnElement) //0 < row here to prevent first from from trying access out of bounds
+        {
+          printf("\nCalling union_sets() on ((%d,%d), %d) & ((%d,%d),%d)", row, clm, twoDNodes[row][clm].oneDindex, row-1, clm, twoDNodes[row-1][clm].oneDindex);
+          ufb.union_sets(twoDNodes[row][clm].oneDindex, twoDNodes[row-1][clm].oneDindex);
+        }
       }
       else
       {
-        std::cout << ' ';
+        //std::cout << ' ';
       }
-    }
-  }
+    }//end of column
+  }//end of rows
 
+  std::cout << "\n\n";
+  ufb.print();
+
+
+  std::cout << "\n\nReturning from main()" << "\n";
   return 0;
 }
+
+/*int convertTwoDToOneD(int r, int c)
+{
+
+}*/
