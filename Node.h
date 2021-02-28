@@ -4,7 +4,14 @@
 class Node
 {
   public:
-    Node *parent;
-    //int index; not needed?
-    //int rank; stored in array in UandF?
-}
+    int row;
+    int clm;
+    int oneDindex;
+
+    Node();
+    Node(int r, int c, int i);
+
+    void print();
+};
+
+#endif

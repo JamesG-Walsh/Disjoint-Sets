@@ -54,6 +54,11 @@ int UandF::find_set(int i)
   return parents[i];
 }
 
+int UandF::final_sets()
+{
+  return -1; //TODO implement
+}
+
 void UandF::print()
 {
   for (int i = 0 ; i < parents.size() ; i++)

@@ -19,6 +19,7 @@ class UandF
     void union_sets(int i, int j);
     void link(int i, int j);
     int find_set(int i);
+    int final_sets(); //TODO implement
 
     void print();
 };
