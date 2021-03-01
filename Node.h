@@ -9,7 +9,7 @@ class Node
     int row;
     int clm;
     int oneDindex;
-    bool isAnElement;
+    bool isAnElement; //left these attributes public for easy access
 
     Node();
     Node(int r, int c, int i, bool e);

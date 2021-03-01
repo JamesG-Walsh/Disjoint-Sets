@@ -128,6 +128,31 @@ int main(int argc, char *argv[])
   std::cout << "\nFinal num sets: " << ufb.final_sets() << "\n";
   ufb.printFinalSets();
 
+  //now print img with unique ASCII chars for each connected component and count the size of each set
+
+  std::cout << "\nPrinting part 2...\n";
+  int asciiInt;
+  char asciiChar;
+  int fSetIndex;
+  for(row = 0; row < height ; row++)
+  {
+    width = twoDNodes[row].size();
+    for (clm = 0 ; clm < width ; clm++)
+    {
+      if(twoDNodes[row][clm].isAnElement)
+      {
+        fSetIndex = ufb.find_set(twoDNodes[row][clm].oneDindex);
+        asciiInt = 64 + fSetIndex; //start before 'A' and offset by final set label
+        asciiChar = (char)asciiInt;
+        std::cout << asciiChar;
+      }
+      else
+      {
+        std::cout << ' ';
+      }
+    }//end of column
+    std::cout << "\n";
+  }//end of rows
 
   std::cout << "\n\nReturning from main()" << "\n";
   return 0;

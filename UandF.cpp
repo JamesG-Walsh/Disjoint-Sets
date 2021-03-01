@@ -56,11 +56,18 @@ void UandF::link(int i, int j)
 
 int UandF::find_set(int i) //TODO finalization
 {
-  if (i != parents[i])
+  if(!setsFinalized)
   {
-    parents[i] = find_set(parents[i]);
+    if (i != parents[i])
+    {
+      parents[i] = find_set(parents[i]);
+    }
+    return parents[i];
   }
-  return parents[i];
+  else
+  {
+    return finalMap.at(parents[i]).first;
+  }
 }
 
 int UandF::final_sets()
@@ -69,7 +76,7 @@ int UandF::final_sets()
   //printf("parents.size(): %d", parents.size());
   for (int i = 1; i < n; i++)
   {
-    finalSets.insert(find_set(i));
+    finalSets.insert(find_set(i));  //the find_set call here fully compresses every path
   }
 
   std::set<int, std::less<int> >::iterator setItr;
@@ -80,14 +87,6 @@ int UandF::final_sets()
   {
     p = std::make_pair(label, 0);
     finalMap[*setItr] = p;
-  }
-
-  std::map<int, std::pair<int, int> >::iterator mapItr;
-  std::cout << "\nThe finalMap is : \n";
-  std::cout << "\tKEY\tELEMENT\n";
-  for (mapItr = finalMap.begin(); mapItr != finalMap.end(); ++mapItr)
-  {
-    std::cout << '\t' << mapItr->first << '\t' << mapItr->second.first << '\n';
   }
 
   setsFinalized = true;
@@ -105,10 +104,17 @@ void UandF::print()
 
 void UandF::printFinalSets()
 {
-  std::set<int, std::less<int> >::iterator itr;
+  /*std::set<int, std::less<int> >::iterator itr;
 
   for (itr = finalSets.begin(); itr != finalSets.end(); itr++)
   {
     std::cout << *itr << " ";
+  }*/
+  std::map<int, std::pair<int, int> >::iterator mapItr;
+  std::cout << "\nThe finalMap is : \n";
+  std::cout << "\tKEY\tELEMENT\tSIZE\n";
+  for (mapItr = finalMap.begin(); mapItr != finalMap.end(); ++mapItr)
+  {
+    std::cout << '\t' << mapItr->first << '\t' << mapItr->second.first << '\t' << mapItr->second.second << '\n';
   }
 }
