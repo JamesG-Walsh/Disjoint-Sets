@@ -134,17 +134,22 @@ int main(int argc, char *argv[])
   int asciiInt;
   char asciiChar;
   int fSetIndex;
+  int preFinalPar;
   for(row = 0; row < height ; row++)
   {
     width = twoDNodes[row].size();
     for (clm = 0 ; clm < width ; clm++)
     {
       if(twoDNodes[row][clm].isAnElement)
-      {
-        fSetIndex = ufb.find_set(twoDNodes[row][clm].oneDindex);
+      {\
+        oneDindex = twoDNodes[row][clm].oneDindex;
+        fSetIndex = ufb.find_set(oneDindex);
         asciiInt = 64 + fSetIndex; //start before 'A' and offset by final set label
         asciiChar = (char)asciiInt;
         std::cout << asciiChar;
+
+        preFinalPar = ufb.getPreFinalParent(twoDNodes[row][clm].oneDindex);
+        ufb.incrementComponentSizeCount(preFinalPar); //counting the size of each connected component
       }
       else
       {
@@ -153,6 +158,8 @@ int main(int argc, char *argv[])
     }//end of column
     std::cout << "\n";
   }//end of rows
+
+  ufb.printFinalSets();
 
   std::cout << "\n\nReturning from main()" << "\n";
   return 0;

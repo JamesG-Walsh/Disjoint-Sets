@@ -12,6 +12,7 @@ class UandF
 {
   protected:
     std::vector<int> parents;
+    std::vector<int> preFinalParents;
     std::vector<int> ranks;
     bool setsFinalized;
     std::set<int, std::less<int> > finalSets;
@@ -28,6 +29,9 @@ class UandF
 
     void print();
     void printFinalSets();
+
+    void incrementComponentSizeCount(int preFinalizationParent);
+    int getPreFinalParent(int i);
 };
 
 #endif

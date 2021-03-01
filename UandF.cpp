@@ -12,10 +12,12 @@ UandF::UandF(int n)
 {
   //parents.resize(n);
   //ranks.resize(n);
+  //preFinalParents.resize(n);
   for(int i = 0; i<=n ; i++) //maybe change to 1->n?
   {
     parents.push_back(-1);
     ranks.push_back(-1); //initialize vectors to -1 to indicate that make_set has not been performed yet();
+    preFinalParents.push_back(-1);
   }
   setsFinalized = false;
 }
@@ -76,7 +78,8 @@ int UandF::final_sets()
   //printf("parents.size(): %d", parents.size());
   for (int i = 1; i < n; i++)
   {
-    finalSets.insert(find_set(i));  //the find_set call here fully compresses every path
+    preFinalParents[i] = find_set(i); //the find_set call here fully compresses every path and stores the result for access after finalization
+    finalSets.insert(find_set(i));
   }
 
   std::set<int, std::less<int> >::iterator setItr;
@@ -117,4 +120,15 @@ void UandF::printFinalSets()
   {
     std::cout << '\t' << mapItr->first << '\t' << mapItr->second.first << '\t' << mapItr->second.second << '\n';
   }
+}
+
+void UandF::incrementComponentSizeCount(int preFinalizationParent)
+{
+  finalMap[preFinalizationParent].second += 1;
+}
+
+int UandF::getPreFinalParent(int i)
+{
+  int pfp = preFinalParents[i];
+  return pfp;
 }
