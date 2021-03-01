@@ -5,12 +5,17 @@
 #define UANDF
 
 #include <vector>
+#include <set>
+#include <map>
 
 class UandF
 {
   protected:
     std::vector<int> parents;
     std::vector<int> ranks;
+    bool setsFinalized;
+    std::set<int, std::less<int> > finalSets;
+    std::map<int, std::pair<int, int> > finalMap;
 
   public:
     UandF(int n);
@@ -22,6 +27,7 @@ class UandF
     int final_sets(); //TODO implement
 
     void print();
+    void printFinalSets();
 };
 
 #endif

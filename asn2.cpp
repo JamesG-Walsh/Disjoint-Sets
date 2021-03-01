@@ -109,22 +109,24 @@ int main(int argc, char *argv[])
     {
       if(twoDNodes[row][clm].isAnElement)
       {
-        //std::cout << '+';
-        if(0 < row && twoDNodes[row-1][clm].isAnElement) //0 < row here to prevent first from from trying access out of bounds
+        if(0 < row && twoDNodes[row-1][clm].isAnElement) //0 < row here to prevent first row from from trying to access out of bounds
         {
           printf("\nCalling union_sets() on ((%d,%d), %d) & ((%d,%d),%d)", row, clm, twoDNodes[row][clm].oneDindex, row-1, clm, twoDNodes[row-1][clm].oneDindex);
           ufb.union_sets(twoDNodes[row][clm].oneDindex, twoDNodes[row-1][clm].oneDindex);
         }
-      }
-      else
-      {
-        //std::cout << ' ';
+        if(0 < clm && twoDNodes[row][clm-1].isAnElement) //0 < clm here to prevent first column from from trying to access out of bounds
+        {
+          printf("\nCalling union_sets() on ((%d,%d), %d) & ((%d,%d),%d)", row, clm, twoDNodes[row][clm].oneDindex, row, clm-1, twoDNodes[row][clm-1].oneDindex);
+          ufb.union_sets(twoDNodes[row][clm].oneDindex, twoDNodes[row][clm-1].oneDindex);
+        }
       }
     }//end of column
   }//end of rows
 
-  std::cout << "\n\n";
+  std::cout << "\n";
   ufb.print();
+  std::cout << "\nFinal num sets: " << ufb.final_sets() << "\n";
+  ufb.printFinalSets();
 
 
   std::cout << "\n\nReturning from main()" << "\n";
