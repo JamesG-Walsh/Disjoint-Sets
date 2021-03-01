@@ -4,6 +4,7 @@
 #include <vector>
 #include <iostream>
 #include <set>
+#include <map>
 
 #include "UandF.h"
 
@@ -53,7 +54,7 @@ void UandF::link(int i, int j)
   }
 }
 
-int UandF::find_set(int i)
+int UandF::find_set(int i) //TODO finalization
 {
   if (i != parents[i])
   {
@@ -69,6 +70,24 @@ int UandF::final_sets()
   for (int i = 1; i < n; i++)
   {
     finalSets.insert(find_set(i));
+  }
+
+  std::set<int, std::less<int> >::iterator setItr;
+  std::pair<int, int> p;  //1st is post finalization label, 2nd is count of connected component size
+
+  int label = 1;
+  for (setItr = finalSets.begin(); setItr != finalSets.end() ; setItr++, label++)
+  {
+    p = std::make_pair(label, 0);
+    finalMap[*setItr] = p;
+  }
+
+  std::map<int, std::pair<int, int> >::iterator mapItr;
+  std::cout << "\nThe finalMap is : \n";
+  std::cout << "\tKEY\tELEMENT\n";
+  for (mapItr = finalMap.begin(); mapItr != finalMap.end(); ++mapItr)
+  {
+    std::cout << '\t' << mapItr->first << '\t' << mapItr->second.first << '\n';
   }
 
   setsFinalized = true;
