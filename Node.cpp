@@ -16,3 +16,13 @@ Node::Node(int r, int c, int i, bool e)
     oneDindex = -1; //no 1D index
   }
 }
+
+bool Node::isElement()
+{
+  return isAnElement;
+}
+
+int Node::getOneDIndex()
+{
+  return oneDindex;
+}

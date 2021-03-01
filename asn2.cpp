@@ -91,7 +91,7 @@ int main(int argc, char *argv[])
   int width;
   int oneDindex;
 
-  std::cout << "num rows: " << height << "\tnum elements: " << numElements << "\n";
+  //std::cout << "num rows: " << height << "\tnum elements: " << numElements << "\n";
 
   UandF ufb = UandF(numElements);
 
@@ -104,19 +104,19 @@ int main(int argc, char *argv[])
   for(row = 0; row < height ; row++)
   {
     width = twoDNodes[row].size();
-    std::cout << "\nrow: " << row << "\twidth: " << width;
+    //std::cout << "\nrow: " << row << "\twidth: " << width;
     for (clm = 0 ; clm < width ; clm++)
     {
       if(twoDNodes[row][clm].isAnElement)
       {
         if(0 < row && twoDNodes[row-1][clm].isAnElement) //0 < row here to prevent first row from from trying to access out of bounds
         {
-          printf("\nCalling union_sets() on ((%d,%d), %d) & ((%d,%d),%d)", row, clm, twoDNodes[row][clm].oneDindex, row-1, clm, twoDNodes[row-1][clm].oneDindex);
+          //printf("\nCalling union_sets() on ((%d,%d), %d) & ((%d,%d),%d)", row, clm, twoDNodes[row][clm].oneDindex, row-1, clm, twoDNodes[row-1][clm].oneDindex);
           ufb.union_sets(twoDNodes[row][clm].oneDindex, twoDNodes[row-1][clm].oneDindex);
         }
         if(0 < clm && twoDNodes[row][clm-1].isAnElement) //0 < clm here to prevent first column from from trying to access out of bounds
         {
-          printf("\nCalling union_sets() on ((%d,%d), %d) & ((%d,%d),%d)", row, clm, twoDNodes[row][clm].oneDindex, row, clm-1, twoDNodes[row][clm-1].oneDindex);
+          //printf("\nCalling union_sets() on ((%d,%d), %d) & ((%d,%d),%d)", row, clm, twoDNodes[row][clm].oneDindex, row, clm-1, twoDNodes[row][clm-1].oneDindex);
           ufb.union_sets(twoDNodes[row][clm].oneDindex, twoDNodes[row][clm-1].oneDindex);
         }
       }
@@ -124,9 +124,10 @@ int main(int argc, char *argv[])
   }//end of rows
 
   std::cout << "\n";
-  ufb.print();
-  std::cout << "\nFinal num sets: " << ufb.final_sets() << "\n";
-  ufb.printFinalSets();
+  //ufb.print();
+  /*std::cout << "\nFinal num sets: " << ufb.final_sets() << "\n";
+  ufb.printFinalSets();*/
+  ufb.final_sets();
 
   //now print img with unique ASCII chars for each connected component and count the size of each set
 
@@ -140,15 +141,15 @@ int main(int argc, char *argv[])
     width = twoDNodes[row].size();
     for (clm = 0 ; clm < width ; clm++)
     {
-      if(twoDNodes[row][clm].isAnElement)
+      if(twoDNodes[row][clm].isElement())
       {\
-        oneDindex = twoDNodes[row][clm].oneDindex;
+        oneDindex = twoDNodes[row][clm].getOneDIndex();
         fSetIndex = ufb.find_set(oneDindex);
         asciiInt = 64 + fSetIndex; //start before 'A' and offset by final set label
         asciiChar = (char)asciiInt;
         std::cout << asciiChar;
 
-        preFinalPar = ufb.getPreFinalParent(twoDNodes[row][clm].oneDindex);
+        preFinalPar = ufb.getPreFinalParent(oneDindex);
         ufb.incrementComponentSizeCount(preFinalPar); //counting the size of each connected component
       }
       else
@@ -159,13 +160,11 @@ int main(int argc, char *argv[])
     std::cout << "\n";
   }//end of rows
 
-  ufb.printFinalSets();
+  //ufb.printFinalSets();
+  ufb.sortBySizeAndPrint();
+
+  
 
   std::cout << "\n\nReturning from main()" << "\n";
   return 0;
 }
-
-/*int convertTwoDToOneD(int r, int c)
-{
-
-}*/

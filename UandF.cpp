@@ -132,3 +132,34 @@ int UandF::getPreFinalParent(int i)
   int pfp = preFinalParents[i];
   return pfp;
 }
+
+void UandF::sortBySizeAndPrint()
+{
+  std::multimap<int, int> sizeToFMap;
+  std::map<int, std::pair<int, int> >::iterator fMapItr;
+  int finSetNum;
+  int size;
+  std::cout << "\nPart 3: The final sets are : \n";
+  std::cout << "\tSET #\tCHAR LABEL\tSIZE\n";
+  for (fMapItr = finalMap.begin(); fMapItr != finalMap.end(); ++fMapItr)
+  {
+    size = fMapItr->second.second;
+    finSetNum = fMapItr->second.first;
+    //sizeToFMap[size] = finSetNum;
+    sizeToFMap.insert(std::pair <int, int> (size, finSetNum));
+
+    //std::cout << '\t' << finSetNum << '\t' << label << '\t' << size << '\n';
+  }
+
+  int labelInt;
+  char label;
+  std::map<int, int>::iterator s2lItr;
+  for(s2lItr = sizeToFMap.begin(); s2lItr != sizeToFMap.end(); ++s2lItr)
+  {
+    finSetNum = s2lItr->second;
+    labelInt = 64 + finSetNum;
+    label = (char)labelInt;
+    size = s2lItr->first;
+    std::cout << '\t' << finSetNum << '\t' << label << "\t\t" << size << '\n';
+  }
+}

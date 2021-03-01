@@ -14,6 +14,8 @@ class Node
     Node();
     Node(int r, int c, int i, bool e);
 
+    int getOneDIndex();
+    bool isElement();
     void print();
 };
 

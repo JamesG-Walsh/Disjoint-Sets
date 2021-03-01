@@ -32,6 +32,7 @@ class UandF
 
     void incrementComponentSizeCount(int preFinalizationParent);
     int getPreFinalParent(int i);
+    void sortBySizeAndPrint();
 };
 
 #endif
