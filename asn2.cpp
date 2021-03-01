@@ -124,7 +124,7 @@ int main(int argc, char *argv[])
     }//end of row
   }//end of rows
 
-  std::cout << "\n";
+  //std::cout << "\n";
   //ufb.print();
   /*std::cout << "\nFinal num sets: " << ufb.final_sets() << "\n";
   ufb.printFinalSets();*/
@@ -132,7 +132,7 @@ int main(int argc, char *argv[])
 
   //now print img with unique ASCII chars for each connected component and count the size of each set
 
-  std::cout << "\nOutputting part 2...\n";
+  std::cout << "Outputting part 2...\n";
   int asciiInt;
   char asciiChar;
   int fSetIndex;
@@ -165,7 +165,6 @@ int main(int argc, char *argv[])
   ufb.sortBySizeAndPrint(); //part 3
 
   std::cout << "\nOutputting part 4...\n" ;
-  int compSize;
   for(row = 0; row < height ; row++)
   {
     width = twoDNodes[row].size();
@@ -174,22 +173,20 @@ int main(int argc, char *argv[])
       if(twoDNodes[row][clm].isElement())
       {
         oneDindex = twoDNodes[row][clm].getOneDIndex();
-        compSize = ufb.getComponentSize(oneDindex);
-        if(3 <= compSize)
+        if(3 <= ufb.getComponentSize(oneDindex))
         {
           fSetIndex = ufb.find_set(oneDindex);
           asciiInt = 64 + fSetIndex;
-          asciiChar = (char)asciiInt;
-          std::cout << asciiChar;
+          std::cout << (char)asciiInt;
         }
         else
         {
-          std::cout << ' ';
+          std::cout << ' ';  //represents element that has been removed
         }
       }
       else
       {
-        std::cout << ' ';
+        std::cout << ' '; //was a space in the original input image
       }
     }//end of row
     std::cout << '\n';

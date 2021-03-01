@@ -139,7 +139,7 @@ void UandF::sortBySizeAndPrint()
   std::map<int, std::pair<int, int> >::iterator fMapItr;
   int finSetNum;
   int size;
-  std::cout << "\nPart 3: The final " << finalMap.size() << " sets are : \n";
+  std::cout << "\nPart 3: The final " << finalMap.size() << " sets/conected components are : \n";
   std::cout << "\tSET #\tCHAR LABEL\tSIZE\n";
   for (fMapItr = finalMap.begin(); fMapItr != finalMap.end(); ++fMapItr)
   {
