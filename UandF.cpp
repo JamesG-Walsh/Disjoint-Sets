@@ -74,6 +74,12 @@ int UandF::find_set(int i) //TODO finalization
 
 int UandF::final_sets()
 {
+  if(setsFinalized)
+  {
+    std::cout << "\nSets already finalized.\n";
+    return -1;
+  }
+
   int n = parents.size();
   //printf("parents.size(): %d", parents.size());
   for (int i = 1; i < n; i++)

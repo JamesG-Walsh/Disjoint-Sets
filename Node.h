@@ -1,3 +1,6 @@
+//CS3340B      Winter 2021 Assignment 2
+//James Walsh jwalsh57    250481718
+
 #ifndef NODE
 #define NODE
 
