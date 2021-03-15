@@ -13,7 +13,7 @@ class UandF
   protected:
     std::vector<int> parents;
     std::vector<int> preFinalParents;
-    std::vector<int> ranks;
+    std::vector<unsigned short int> ranks;
     bool setsFinalized;
     std::set<int, std::less<int> > finalSets;
     std::map<int, std::pair<int, int> > finalMap;
