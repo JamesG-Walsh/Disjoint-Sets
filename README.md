@@ -1,5 +1,7 @@
 # Disjoint Sets
-Efficient implementation of disjoint set (union-find) data structure
+Efficient implementation of disjoint set (union-find) data structure.  Supports make_set(), union(), and find() operations.
+
+Time complexity is O(m log* n) for a sequence of m operations, n of which are make_set operations.  In practice, this is linear time.
 
 ## Usage
 * `make` - compiles program
